@@ -7,6 +7,7 @@
 *.swp
 pkg/commit/commit.go
 bin
+tags
 
 # Test binary, built with `go test -c`
 *.test
