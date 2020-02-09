@@ -5,7 +5,7 @@
 *.so
 *.dylib
 *.swp
-
+pkg/commit/commit.go
 bin
 
 # Test binary, built with `go test -c`
