@@ -27,7 +27,12 @@ linters-settings:
     lines: 70
     statements: 50
   goimports:
-    local-prefixes: github.com/o2gy84
+    local-prefixes: github.com/o2gy84/o2db
+  gomnd:
+    settings:
+      mnd:
+        # the list of enabled checks, see https://github.com/tommy-muehle/go-mnd/#checks for description.
+        checks: argument,case,condition,operation,return,assign
   gocritic:
     enabled-tags:
       - style

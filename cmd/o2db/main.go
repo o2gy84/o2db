@@ -1,38 +1,42 @@
 package main
 
 import (
-	"time"
 	"context"
+	"time"
 
 	log "github.com/sirupsen/logrus"
 
-	"github.com/o2gy84/o2db/pkg/lsm"
-	"github.com/o2gy84/o2db/pkg/commit"
 	"github.com/o2gy84/o2db/pkg/cmd"
+	"github.com/o2gy84/o2db/pkg/commit"
+	"github.com/o2gy84/o2db/pkg/lsm"
 )
 
-
-func run(context context.Context) error {
+func run(ctx context.Context) error {
 	for {
-		log.Printf("hi")
-		time.Sleep(1000*time.Millisecond)
+		select {
+		case <-ctx.Done():
+			log.Printf("context is canceled")
+			return nil
+		default:
+			log.Printf("hi")
+			time.Sleep(1000 * time.Millisecond)
+		}
 	}
-	return nil
 }
 
 func main() {
 	log.Printf("[commit] %s", commit.Commit)
 
-	lsm, err := lsm.New()
+	l, err := lsm.New()
 	if err != nil {
 		log.Errorf("lsm.Init() error: %s", err)
 	}
-	log.Printf("lsm is: %s", lsm)
+	log.Printf("lsm is: %s", l)
 
 	ctx := context.Background()
 	opt := cmd.RunOpt{
-		Timeout: 100*time.Millisecond,
-		ExitWait: 100*time.Millisecond,
+		Timeout:  100 * time.Millisecond,
+		ExitWait: 100 * time.Millisecond,
 	}
 
 	cmd.Run(ctx, opt, run)

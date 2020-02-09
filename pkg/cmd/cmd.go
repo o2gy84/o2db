@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/sirupsen/logrus"
+
 	"github.com/o2gy84/o2db/config"
 )
 
@@ -100,5 +101,3 @@ func Run(ctx context.Context, opt RunOpt, f func(ctx context.Context) error) {
 		}
 	}
 }
-
-
